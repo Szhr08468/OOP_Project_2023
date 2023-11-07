@@ -147,6 +147,77 @@ void Game::DisplayStartingScreen(Uint32 duration)
     SDL_DestroyTexture(startingScreenTexture);
 }
 
+bool Game::DisplayCardForBuy(const char* filePath)
+{
+    bool BUY = false;
+
+    SDL_Texture* startingScreenTexture = LoadTexture(filePath); // Implement LoadTexture according to your setup
+    if (!startingScreenTexture)
+    {
+        printf("Error in DisplayCardForBuy\n");
+        return false;
+    }
+
+    // Set the position and dimensions of the card
+    int cardWidth = 300;
+    int cardHeight = 400;
+    int cardX = (screenWidth - cardWidth) / 2;
+    int cardY = (screenHeight - cardHeight) / 2;
+
+    // Create a flag to control the loop
+    bool exitLoop = false;
+
+    while (!exitLoop)
+    {
+        // Render the starting screen image
+        SDL_RenderClear(gRenderer);
+
+        // Render the card in the center
+        SDL_Rect cardRect = {cardX, cardY, cardWidth, cardHeight};
+        SDL_RenderCopy(gRenderer, startingScreenTexture, NULL, &cardRect);
+
+        SDL_RenderPresent(gRenderer);
+
+        // Check for events
+        SDL_Event e;
+        while (SDL_PollEvent(&e) != 0)
+        {
+            if (e.type == SDL_KEYDOWN)
+            {
+                if (e.key.keysym.sym == SDLK_b)
+                {
+                    BUY = true;
+                    exitLoop = true; // Exit the loop on 'B' press
+                }
+                else if (e.key.keysym.sym == SDLK_n)
+                {
+                    BUY = false;
+                    exitLoop = true; // Exit the loop on 'N' press
+                }
+            }
+        }
+    }
+
+    // Release the starting screen texture
+    SDL_DestroyTexture(startingScreenTexture);
+
+    return BUY;
+}
+
+
+
+
+
+
+bool Game::IsKeyPressed(SDL_Scancode key)
+{
+    const Uint8* keyState = SDL_GetKeyboardState(NULL);
+
+    // Use keyState[key] to check the state of the key
+    return keyState[key] != 0;
+}
+
+
 
 void Game::PlayBackgroundMusic()
 {
@@ -166,10 +237,7 @@ bool Game::HandleEvents()
     return false;
 }
 
-void Game::Update()
-{
-    // Implement game logic here
-}
+
 
 void Game::Render()
 {

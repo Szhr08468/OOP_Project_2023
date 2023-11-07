@@ -4,6 +4,8 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
+#include "GameState.h"
+
 
 class Game
 {
@@ -16,9 +18,12 @@ public:
     bool LoadAssets(const char* backgroundImageFile, const char* backgroundMusicFile);
     SDL_Texture* LoadTexture(const char* filePath);
     void DisplayStartingScreen(Uint32 duration);
+    bool DisplayCardForBuy(const char* filePath);
+    bool IsKeyPressed(SDL_Scancode key);
     void PlayBackgroundMusic();
     bool HandleEvents();
-    void Update();
+    bool Update(Game& game,GameState& gamestate);
+
     void Render();
     void Cleanup();
 
