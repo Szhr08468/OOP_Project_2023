@@ -4,7 +4,10 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
+#include <vector>
 #include "GameState.h"
+#include "pieces.h"
+#include "money.h"
 
 
 class Game
@@ -19,11 +22,18 @@ public:
     SDL_Texture* LoadTexture(const char* filePath);
     void DisplayStartingScreen(Uint32 duration);
     bool DisplayCardForBuy(const char* filePath);
+    void DisplayChanceOrComunnityChest(const char* filePath);
     bool IsKeyPressed(SDL_Scancode key);
+    void InitializeGamePieces();
+    void InitializeMoney();
     void PlayBackgroundMusic();
     bool HandleEvents();
-    bool Update(Game& game,GameState& gamestate);
+    bool Update();
 
+    void RenderPieces();
+    void RenderPlayerIcons();
+    void RenderPlayerMoney();
+    void RenderBackground();
     void Render();
     void Cleanup();
 
@@ -37,7 +47,9 @@ private:
     int screenHeight;
     SDL_Rect backgroundRect;
 
-    bool quit;
+    std::vector<Piece> gamePieces;
+    std::vector<Money> PlayerMoney;
+    GameState gamestate;
 };
 
 #endif
