@@ -1,36 +1,50 @@
 #include "game.h"
 #include "GameState.h"
+#include "pieces.h"
+#include "money.h"
 #include <cstdio>
+#include <vector>
+#include <iostream>
 
-bool Game::Update(Game& game,GameState& gamestate)
+bool Game::Update()
 {   
-    GameState::State currentState = gamestate.GetCurrentState();
-
-    // Implement game logic here
     bool GameOver = false;
 
-    if (currentState==GameState::State::Player1Turn) 
+    GameState::State currentState = gamestate.GetCurrentState();
+
+    if (currentState==GameState::State::GameStart) 
+    {   
+        SDL_Delay(5000);
+        gamestate.SetState(GameState::State::Player1Turn);
+    }
+    else if (currentState==GameState::State::Player1Turn) 
     {
-        GameOver = game.DisplayCardForBuy("assets/Properties/bond_street.jpg");
+        PlayerMoney[0].AddAmount(12347);
+        SDL_Delay(5000);   
         gamestate.SetState(GameState::State::Player2Turn);
     } 
     else if (currentState==GameState::State::Player2Turn) 
-    {
-        GameOver = game.DisplayCardForBuy("assets/Properties/bow_street.jpg");
+    {   
+        PlayerMoney[1].SubtractAmount(7683);
+        SDL_Delay(5000);
         gamestate.SetState(GameState::State::Player3Turn);
     }
     else if (currentState==GameState::State::Player3Turn) 
-    {
-        GameOver = game.DisplayCardForBuy("assets/Properties/pallmall.jpg");
+    {   
+        PlayerMoney[2].SetAmount(3000);
+        SDL_Delay(5000);
         gamestate.SetState(GameState::State::Player4Turn);
     }
     else if (currentState==GameState::State::Player4Turn) 
-    {
-        GameOver = game.DisplayCardForBuy("assets/Properties/park_lane.jpg");
-        gamestate.SetState(GameState::State::Player1Turn);
+    {   
+        PlayerMoney[3].SetAmount(99999);
+        SDL_Delay(5000);
+        // gamestate.SetState(GameState::State::Player1Turn);
+        gamestate.SetState(GameState::State::GameOver);
     }
     else if (currentState==GameState::State::GameOver)
-    {
+    {   
+        SDL_Delay(3000);
         return GameOver=true;
     }
 

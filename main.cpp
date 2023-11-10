@@ -1,16 +1,15 @@
 #include <SDL.h>
 #include <stdio.h>
 #include "game.h"
-#include "GameState.h"
+#include "pieces.h"
 
-const int SCREEN_WIDTH = 1100;
+const int SCREEN_WIDTH = 1200;
 const int SCREEN_HEIGHT = 700;
 
 int main(int argc, char* args[])
 {
 
     Game game;
-    GameState gamestate;
 
 
     if (!game.InitializeSDL())
@@ -31,16 +30,22 @@ int main(int argc, char* args[])
 
     game.PlayBackgroundMusic();
 
+    game.DisplayStartingScreen(3000);
+
+    game.InitializeGamePieces();
+
+    game.InitializeMoney();
+    
     bool handle_events_quit = false;
     bool update_quit = false;
 
-    game.DisplayStartingScreen(3000);
-
     while (!handle_events_quit and !update_quit)
-    {   
-        update_quit = game.Update(game,gamestate);
+    {
+
+        game.Render(); // Calls SDL_RenderClear to clear the screen
+        update_quit = game.Update();
         handle_events_quit = game.HandleEvents();
-        game.Render();
+        
     }
 
     game.Cleanup();
