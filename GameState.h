@@ -4,6 +4,7 @@
 class GameState {
 public:
     enum class State {
+        GameStart,
         Player1Turn,
         Player2Turn,
         Player3Turn,
