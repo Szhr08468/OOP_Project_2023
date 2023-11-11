@@ -23,6 +23,7 @@ public:
     void DisplayStartingScreen(Uint32 duration);
     bool DisplayCardForBuy(const char* filePath);
     void DisplayChanceOrComunnityChest(const char* filePath);
+    int  RollDice();
     bool IsKeyPressed(SDL_Scancode key);
     void InitializeGamePieces();
     void InitializeMoney();

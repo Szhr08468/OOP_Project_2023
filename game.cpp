@@ -175,8 +175,11 @@ bool Game::DisplayCardForBuy(const char* filePath)
         // Render the starting screen image
         SDL_RenderClear(gRenderer);
 
+        RenderBackground();
+
         // Render the card in the center
         SDL_Rect cardRect = {cardX, cardY, cardWidth, cardHeight};
+        Render();
         SDL_RenderCopy(gRenderer, startingScreenTexture, NULL, &cardRect);
 
         SDL_RenderPresent(gRenderer);
@@ -225,6 +228,7 @@ void Game::DisplayChanceOrComunnityChest(const char* filePath)
 
     // Render the starting screen image
     SDL_RenderClear(gRenderer);
+    Render();
     SDL_RenderCopy(gRenderer, startingScreenTexture, NULL, &cardRect);
     SDL_RenderPresent(gRenderer);
 
@@ -240,6 +244,68 @@ void Game::DisplayChanceOrComunnityChest(const char* filePath)
 
     // Release the starting screen texture
     SDL_DestroyTexture(startingScreenTexture);
+}
+
+int Game::RollDice() {
+    int random = (rand() % 5)+1;
+
+    SDL_Texture* D1 = LoadTexture("assets/Dice/dice1.png");
+    SDL_Texture* D2 = LoadTexture("assets/Dice/dice2.png");
+    SDL_Texture* D3 = LoadTexture("assets/Dice/dice3.png");
+    SDL_Texture* D4 = LoadTexture("assets/Dice/dice4.png");
+    SDL_Texture* D5 = LoadTexture("assets/Dice/dice5.png");
+    SDL_Texture* D6 = LoadTexture("assets/Dice/dice6.png");
+
+    std::vector<SDL_Texture*> tex;
+    tex.push_back(D1);
+    tex.push_back(D2);
+    tex.push_back(D3);
+    tex.push_back(D4);
+    tex.push_back(D5);
+    tex.push_back(D6);
+
+    // x = 345->805
+    // y = 95->555
+
+    int x = (rand()%461)+345;
+    int y =(rand()%461)+95;
+
+    SDL_Rect Dice_Rect = {x,y,50,50};
+
+
+    for (int i=0;i<5;i++) {
+        int n = rand() % 5;
+
+        SDL_RenderClear(gRenderer);
+        Render();
+        SDL_RenderCopy(gRenderer, tex[n], NULL, &Dice_Rect);
+        SDL_RenderPresent(gRenderer);
+
+    }
+
+
+    SDL_RenderClear(gRenderer);
+    Render();
+    SDL_RenderCopy(gRenderer, tex[random-1], NULL, &Dice_Rect);
+    SDL_RenderPresent(gRenderer);
+
+    SDL_Delay(2000);
+
+
+    for (SDL_Texture* texture : tex) {
+        SDL_DestroyTexture(texture);
+    }
+    tex.clear();
+
+    
+    SDL_DestroyTexture(D1);
+    SDL_DestroyTexture(D2);
+    SDL_DestroyTexture(D3);
+    SDL_DestroyTexture(D4);
+    SDL_DestroyTexture(D5);
+    SDL_DestroyTexture(D6);
+
+    return random;
 }
 
 

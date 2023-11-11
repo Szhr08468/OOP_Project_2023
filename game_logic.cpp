@@ -14,7 +14,9 @@ bool Game::Update()
 
     if (currentState==GameState::State::GameStart) 
     {   
-        SDL_Delay(5000);
+        // SDL_Delay(5000);
+        RollDice();
+        GameOver=true;
         gamestate.SetState(GameState::State::Player1Turn);
     }
     else if (currentState==GameState::State::Player1Turn) 
