@@ -8,8 +8,9 @@ Piece::Piece(SDL_Renderer* renderer)
 
 Piece::~Piece() {}
 
+
 void Piece::SetPosition(int x, int y) {
-    this->x = x-(85+(9*60));
+    this->x = x;
     this->y = y;
     SetRect();
 }
@@ -24,10 +25,19 @@ void Piece::SetSize(int width, int height) {
 void Piece::SetRect(){
     PRect = {this->x,this->y,this->width,this->height};
 }
+void Piece::MoveRectx(int deltaX) {
+    this->x -= deltaX;
+    SetRect();
+}
+void Piece::MoveRecty(int deltay) {
+    this->y -= deltay;
+    SetRect();
+}
 
 SDL_Rect Piece::GetRect() const {
     return PRect;
 }
+
 
 
 
