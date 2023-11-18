@@ -9,7 +9,7 @@ Piece::Piece(SDL_Renderer* renderer)
 Piece::~Piece() {}
 
 void Piece::SetPosition(int x, int y) {
-    this->x = x;
+    this->x = x-(85+(9*60));
     this->y = y;
     SetRect();
 }

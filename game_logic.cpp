@@ -6,8 +6,14 @@
 #include <vector>
 #include <iostream>
 
+
 bool Game::Update()
 {   
+
+    int bottom[10] = {805,745,685,625,565,505,445,385,325,265}; //coordinates for each property in bottom section
+    int right[10] = {}; //
+    int left[10] = {};
+    int top[10] = {};
     bool GameOver = false;
 
     GameState::State currentState = gamestate.GetCurrentState();
@@ -16,7 +22,7 @@ bool Game::Update()
     {   
         // SDL_Delay(5000);
         RollDice();
-        GameOver=true;
+        //GameOver=false;
         gamestate.SetState(GameState::State::Player1Turn);
     }
     else if (currentState==GameState::State::Player1Turn) 
@@ -47,9 +53,7 @@ bool Game::Update()
     else if (currentState==GameState::State::GameOver)
     {   
         SDL_Delay(3000);
-        return GameOver=true;
+        return GameOver=false;
     }
-
-
     return GameOver;
 }
