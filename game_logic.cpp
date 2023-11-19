@@ -11,7 +11,7 @@ bool Game::Update()
 {   
 
     int bottom[10] = {805,745,685,625,565,505,445,385,325,265}; //coordinates for each property in bottom section
-    int right[10] = {}; //
+    int right[10] = {550,495,440,380,325,270,215,155,100,40}; //
     int left[10] = {};
     int top[10] = {};
     bool GameOver = false;
