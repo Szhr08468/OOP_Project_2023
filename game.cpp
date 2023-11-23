@@ -323,22 +323,15 @@ void Game::InitializeGamePieces() {
     Piece piece1(gRenderer); // Create a piece with the given renderer
     piece1.SetPosition(890, 620);
     piece1.SetSize(20, 20); 
-    // piece1.MoveRectx(85);
-    // piece1.MoveRectx(60);
     gamePieces.push_back(piece1);
 
     Piece piece2(gRenderer); // Create a piece with the given renderer
     piece2.SetPosition(920, 620);
     piece2.SetSize(20, 20);
-    // piece2.MoveRectx(85);
-    // // SDL_Delay(2000);
-    // piece2.MoveRectx(60);
     gamePieces.push_back(piece2); 
 
     Piece piece3(gRenderer); // Create a piece with the given renderer
     piece3.SetPosition(890, 650);
-    // piece3.MoveRecty(85);
-    // piece3.MoveRecty(60);
     piece3.SetSize(20, 20); 
     gamePieces.push_back(piece3);
 
