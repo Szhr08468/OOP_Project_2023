@@ -321,22 +321,22 @@ bool Game::IsKeyPressed(SDL_Scancode key)
 void Game::InitializeGamePieces() {
     
     Piece piece1(gRenderer); // Create a piece with the given renderer
-    piece1.SetPosition(890, 620);
+    piece1.SetPosition(red[aun][0], red[aun][1]);
     piece1.SetSize(20, 20); 
     gamePieces.push_back(piece1);
 
     Piece piece2(gRenderer); // Create a piece with the given renderer
-    piece2.SetPosition(920, 620);
+    piece2.SetPosition(green[aun][0], green[aun][1]);
     piece2.SetSize(20, 20);
     gamePieces.push_back(piece2); 
 
     Piece piece3(gRenderer); // Create a piece with the given renderer
-    piece3.SetPosition(890, 650);
+    piece3.SetPosition(pink[aun][0], pink[aun][1]);
     piece3.SetSize(20, 20); 
     gamePieces.push_back(piece3);
 
     Piece piece4(gRenderer); // Create a piece with the given renderer
-    piece4.SetPosition(920, 650);
+    piece4.SetPosition(blue[aun][0], blue[aun][1]);
     piece4.SetSize(20, 20); 
     gamePieces.push_back(piece4);
 
