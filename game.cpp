@@ -200,6 +200,7 @@ bool Game::DisplayCardForBuy(const char* filePath)
                     BUY = false;
                     exitLoop = true; // Exit the loop on 'N' press
                 }
+
             }
         }
     }
@@ -321,22 +322,22 @@ bool Game::IsKeyPressed(SDL_Scancode key)
 void Game::InitializeGamePieces() {
     
     Piece piece1(gRenderer); // Create a piece with the given renderer
-    piece1.SetPosition(red[aun][0], red[aun][1]);
+    piece1.SetPosition(red[0][0], red[0][1]);
     piece1.SetSize(20, 20); 
     gamePieces.push_back(piece1);
 
     Piece piece2(gRenderer); // Create a piece with the given renderer
-    piece2.SetPosition(green[aun][0], green[aun][1]);
+    piece2.SetPosition(green[0][0], green[0][1]);
     piece2.SetSize(20, 20);
     gamePieces.push_back(piece2); 
 
     Piece piece3(gRenderer); // Create a piece with the given renderer
-    piece3.SetPosition(pink[aun][0], pink[aun][1]);
+    piece3.SetPosition(pink[0][0], pink[0][1]);
     piece3.SetSize(20, 20); 
     gamePieces.push_back(piece3);
 
     Piece piece4(gRenderer); // Create a piece with the given renderer
-    piece4.SetPosition(blue[aun][0], blue[aun][1]);
+    piece4.SetPosition(blue[0][0], blue[0][1]);
     piece4.SetSize(20, 20); 
     gamePieces.push_back(piece4);
 
@@ -347,7 +348,7 @@ void Game::InitializeMoney() {
     for (int i=0;i<4;i++) 
     {
         Money money;
-        money.SetAmount(10000);
+        money.SetAmount(1500);
         PlayerMoney.push_back(money);
     }
 }
@@ -642,3 +643,5 @@ void Game::Cleanup()
     IMG_Quit();
     SDL_Quit();
 }
+
+
