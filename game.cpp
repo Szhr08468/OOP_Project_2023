@@ -200,7 +200,6 @@ bool Game::DisplayCardForBuy(const char* filePath)
                     BUY = false;
                     exitLoop = true; // Exit the loop on 'N' press
                 }
-
             }
         }
     }

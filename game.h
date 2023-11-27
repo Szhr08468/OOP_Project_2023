@@ -39,6 +39,8 @@ public:
     void RenderBackground();
     void Render();
     void Cleanup();
+    void docommunitychest(int a, int p, int arr1[40][2]);
+    void dochance(int b, int p, int arr[40][2]);
 
 private:
     SDL_Window* gWindow;
@@ -139,47 +141,47 @@ private:
 
 
 
-std::string all_cards[40][2] = {
+std::string all_cards[40][3] = {
     {"Go", "  "},
-    {"Old Kent Road", "assets/properties/old_kent.jpg"},
-    {"Community Chest", "assets/CommunityChest/CommunityChest" + std::to_string(rand() % 15) + ".jpg"},
-    {"Whitechapel Road", "assets/properties/whitechapel_road.jpg"},
-    {"Income Tax", "  "},
-    {"King's Cross Station", "assets/properties/kingcross_station.jpg"},
-    {"The Angel Islington", "assets/properties/the_angel_islington.jpg"},
-    {"Chance", "assets/Chance/Chance" + std::to_string(rand() % 15) + ".jpg"},
-    {"Euston Road", "assets/properties/euston_road.jpg"},
-    {"Pentonville Road", "assets/properties/pentonville_road.jpg"},
-    {"Jail", "  "},
-    {"Pall Mall", "assets/properties/pallmall.jpg"},
-    {"Electric Company", "assets/properties/electric_company.jpg"},
-    {"Whitehall", "assets/properties/whitehall.jpg"},
-    {"Northumberland Avenue", "assets/properties/northumberland_avenue.jpg"},
-    {"Marylebone Station", "assets/properties/marylebone_station.jpg"},
-    {"Bow Street", "assets/properties/bow_street.jpg"},
-    {"Community Chest", "assets/CommunityChest/CommunityChest" + std::to_string(rand() % 15) + ".jpg"},
-    {"Marlborough Street", "assets/properties/marlborough_street.jpg"},
-    {"Vine Street", "assets/properties/vine_street.jpg"},
-    {"Free Parking", "  "},
-    {"Strand", "assets/properties/strand.jpg"},
-    {"Chance", "assets/Chance/Chance" + std::to_string(rand() % 15) + ".jpg"},
-    {"Fleet Street", "assets/properties/fleet_street.jpg"},
-    {"Trafalgar Square", "assets/properties/trafalgar_square.jpg"},
-    {"Fenchurch St. Station", "assets/properties/fenchurch_street_station.jpg"},
-    {"Leicester Square", "assets/properties/leicester_square.jpg"},
-    {"Coventry Street", "assets/properties/coventry_street.jpg"},
-    {"Water Works", "assets/properties/water_works.jpg"},
-    {"Piccadilly", "assets/properties/piccadilly.jpg"},
-    {"Go to Jail", "  "},
-    {"Regent Street", "assets/properties/regent_street.jpg"},
-    {"Oxford Street", "assets/properties/oxfors_street.jpg"},
-    {"Community Chest", "assets/CommunityChest/CommunityChest" + std::to_string(rand() % 15) + ".jpg"},
-    {"Bond Street", "assets/properties/bond_street.jpg"},
-    {"Liverpool St. Station", "assets/properties/liverpool_street_station.jpg"},
-    {"Chance", "assets/Chance/Chance" + std::to_string(rand() % 15) + ".jpg"},
-    {"Park Lane", "assets/properties/park_lane.jpg"},
-    {"Super Tax", "  "},
-    {"Mayfair", "assets/properties/mayfair.jpg"}
+    {"Old Kent Road", "assets/properties/old_kent.jpg","60"},
+    {"Community Chest", "assets/CommunityChest/CommunityChest" + std::to_string(rand() % 15) + ".jpg","0"},
+    {"Whitechapel Road", "assets/properties/whitechapel_road.jpg","60"},
+    {"Income Tax", "  ","200"},
+    {"King's Cross Station", "assets/properties/kingcross_station.jpg","200"},
+    {"The Angel Islington", "assets/properties/the_angel_islington.jpg","100"},
+    {"Chance", "assets/Chance/Chance" + std::to_string(rand() % 15) + ".jpg","0"},
+    {"Euston Road", "assets/properties/euston_road.jpg","100"},
+    {"Pentonville Road", "assets/properties/pentonville_road.jpg","120"},
+    {"Jail", "  ","0"},
+    {"Pall Mall", "assets/properties/pallmall.jpg","140"},
+    {"Electric Company", "assets/properties/electric_company.jpg","150"},
+    {"Whitehall", "assets/properties/whitehall.jpg","140"},
+    {"Northumberland Avenue", "assets/properties/northumberland_avenue.jpg","160"},
+    {"Marylebone Station", "assets/properties/marylebone_station.jpg","200"},
+    {"Bow Street", "assets/properties/bow_street.jpg","180"},
+    {"Community Chest", "assets/CommunityChest/CommunityChest" + std::to_string(rand() % 15) + ".jpg","0"},
+    {"Marlborough Street", "assets/properties/marlborough_street.jpg","180"},
+    {"Vine Street", "assets/properties/vine_street.jpg","200"},
+    {"Free Parking", "  ","200"},
+    {"Strand", "assets/properties/strand.jpg","220"},
+    {"Chance", "assets/Chance/Chance" + std::to_string(rand() % 15) + ".jpg","0"},
+    {"Fleet Street", "assets/properties/fleet_street.jpg","220"},
+    {"Trafalgar Square", "assets/properties/trafalgar_square.jpg","240"},
+    {"Fenchurch St. Station", "assets/properties/fenchurch_street_station.jpg","200"},
+    {"Leicester Square", "assets/properties/leicester_square.jpg","260"},
+    {"Coventry Street", "assets/properties/coventry_street.jpg","260"},
+    {"Water Works", "assets/properties/water_works.jpg","150"},
+    {"Piccadilly", "assets/properties/piccadilly.jpg","280"},
+    {"Go to Jail", "  ","0"},
+    {"Regent Street", "assets/properties/regent_street.jpg","300"},
+    {"Oxford Street", "assets/properties/oxfors_street.jpg","300"},
+    {"Community Chest", "assets/CommunityChest/CommunityChest" + std::to_string(rand() % 15) + ".jpg","0"},
+    {"Bond Street", "assets/properties/bond_street.jpg","320"},
+    {"Liverpool St. Station", "assets/properties/liverpool_street_station.jpg","200"},
+    {"Chance", "assets/Chance/Chance" + std::to_string(rand() % 15) + ".jpg","0"},
+    {"Park Lane", "assets/properties/park_lane.jpg","350"},
+    {"Super Tax", "  ","100"},
+    {"Mayfair", "assets/properties/mayfair.jpg","400"}
 };
 };
 #endif
