@@ -1,8 +1,11 @@
 #include "game.h"
 #include "pieces.h"
 #include "money.h"
+#include "player.h"
+
 #include <vector>
 #include <cstdio>
+
 
 const int MARGIN = 250;  // Define the margin here
 
@@ -347,8 +350,17 @@ void Game::InitializeMoney() {
     for (int i=0;i<4;i++) 
     {
         Money money;
-        money.SetAmount(1500);
+        money.SetAmount(5000);
         PlayerMoney.push_back(money);
+    }
+}
+
+void Game::InitializePlayers() {
+
+    for (int i=0;i<4;i++) 
+    {
+        Player p;
+        player.push_back(p);
     }
 }
 

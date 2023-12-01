@@ -35,6 +35,9 @@ int main(int argc, char* args[])
     game.InitializeGamePieces();
 
     game.InitializeMoney();
+
+    game.InitializePlayers();
+
     
     bool handle_events_quit = false;
     bool update_quit = false;

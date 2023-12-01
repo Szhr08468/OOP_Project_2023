@@ -5,11 +5,25 @@
 #include <SDL_image.h>
 #include <SDL_mixer.h>
 #include <vector>
+#include <string>
+#include <cstdlib> // Include this header for rand() function
+
 #include "GameState.h"
 #include "pieces.h"
 #include "money.h"
-#include <string>
-#include <cstdlib> // Include this header for rand() function
+
+
+// std::vector<Player> p;
+//     Player p1;
+//     Player p2;
+//     Player p3;
+//     Player p4;
+//     p.push_back(p1);
+//     p.push_back(p2);
+//     p.push_back(p3);
+//     p.push_back(p4);
+
+class Player;
 
 class Game
 {
@@ -29,6 +43,7 @@ public:
     
     void InitializeGamePieces();
     void InitializeMoney();
+    void InitializePlayers();
     void PlayBackgroundMusic();
     bool HandleEvents();
     bool Update();
@@ -54,6 +69,7 @@ private:
 
     std::vector<Piece> gamePieces;
     std::vector<Money> PlayerMoney;
+    std::vector<Player> player;
     GameState gamestate;
 
     
