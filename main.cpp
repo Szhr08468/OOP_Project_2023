@@ -32,10 +32,6 @@ int main(int argc, char* args[])
 
     game.DisplayStartingScreen(3000);
 
-    game.InitializeGamePieces();
-
-    game.InitializeMoney();
-
     game.InitializePlayers();
 
     

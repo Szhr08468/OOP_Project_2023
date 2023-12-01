@@ -6,14 +6,13 @@
 
 class Piece {
 public:
-    Piece(SDL_Renderer* renderer);
+
+    Piece();
     ~Piece();
 
     void SetPosition(int x, int y);
     void SetSize(int width, int height);
     void SetRect();
-    void MoveRectx(int deltax);
-    void MoveRecty(int deltaX);
     SDL_Rect GetRect() const;
 
     

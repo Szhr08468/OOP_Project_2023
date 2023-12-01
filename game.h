@@ -41,8 +41,6 @@ public:
     int  RollDice();
     bool IsKeyPressed(SDL_Scancode key);
     
-    void InitializeGamePieces();
-    void InitializeMoney();
     void InitializePlayers();
     void PlayBackgroundMusic();
     bool HandleEvents();
@@ -57,22 +55,7 @@ public:
     void docommunitychest(int a, int p, int arr1[40][2]);
     void dochance(int b, int p, int arr[40][2]);
 
-private:
-    SDL_Window* gWindow;
-    SDL_Renderer* gRenderer;
-    SDL_Texture* backgroundTexture;
-    Mix_Music* backgroundMusic;
-
-    int screenWidth;
-    int screenHeight;
-    SDL_Rect backgroundRect;
-
-    std::vector<Piece> gamePieces;
-    std::vector<Money> PlayerMoney;
-    std::vector<Player> player;
-    GameState gamestate;
-
-    
+protected:
 
     int red[40][2] = {
 
@@ -117,6 +100,21 @@ private:
         {920, 45}, {920, 125}, {920, 185}, {920, 240}, {920, 295}, {920, 355},
         {920, 410}, {920, 470}, {920, 526}, {920, 584}
     };
+    
+
+private:
+    SDL_Window* gWindow;
+    SDL_Renderer* gRenderer;
+    SDL_Texture* backgroundTexture;
+    Mix_Music* backgroundMusic;
+
+    int screenWidth;
+    int screenHeight;
+    SDL_Rect backgroundRect;
+
+    std::vector<Player> player;
+    GameState gamestate;
+
 
     std::string chest_paths[15] = {
     "assets/CommunityChest/CommunityChest0.jpg",

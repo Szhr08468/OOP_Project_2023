@@ -321,47 +321,25 @@ bool Game::IsKeyPressed(SDL_Scancode key)
 }
 
 
-void Game::InitializeGamePieces() {
-    
-    Piece piece1(gRenderer); // Create a piece with the given renderer
-    piece1.SetPosition(red[0][0], red[0][1]);
-    piece1.SetSize(20, 20); 
-    gamePieces.push_back(piece1);
-
-    Piece piece2(gRenderer); // Create a piece with the given renderer
-    piece2.SetPosition(green[0][0], green[0][1]);
-    piece2.SetSize(20, 20);
-    gamePieces.push_back(piece2); 
-
-    Piece piece3(gRenderer); // Create a piece with the given renderer
-    piece3.SetPosition(pink[0][0], pink[0][1]);
-    piece3.SetSize(20, 20); 
-    gamePieces.push_back(piece3);
-
-    Piece piece4(gRenderer); // Create a piece with the given renderer
-    piece4.SetPosition(blue[0][0], blue[0][1]);
-    piece4.SetSize(20, 20); 
-    gamePieces.push_back(piece4);
-
-
-}
-
-void Game::InitializeMoney() {
-    for (int i=0;i<4;i++) 
-    {
-        Money money;
-        money.SetAmount(5000);
-        PlayerMoney.push_back(money);
-    }
-}
 
 void Game::InitializePlayers() {
 
-    for (int i=0;i<4;i++) 
-    {
-        Player p;
-        player.push_back(p);
-    }
+    Player p1("p1");
+    p1.Intialize_piece_money();
+    player.push_back(p1);
+
+    Player p2("p2");
+    p2.Intialize_piece_money();
+    player.push_back(p2);
+
+    Player p3("p3");
+    p3.Intialize_piece_money();
+    player.push_back(p3);
+
+    Player p4("p4");
+    p4.Intialize_piece_money();
+    player.push_back(p4);
+
 }
 
 void Game::PlayBackgroundMusic()
@@ -390,8 +368,8 @@ void Game::RenderPieces()
     SDL_Texture* pieceTexture4 = LoadTexture("assets/Pieces/p4.png");
 
 
-    for (size_t i = 0; i < gamePieces.size(); i++) {
-        SDL_Rect destRect = gamePieces[i].GetRect();
+    for (size_t i = 0; i < 4; i++) {
+        SDL_Rect destRect = (player[i].GetPieceObject()).GetRect();
         if (i == 0) {
             SDL_RenderCopy(gRenderer, pieceTexture1, nullptr, &destRect);
         } else if (i == 1) {
@@ -558,7 +536,8 @@ void Game::RenderPlayerMoney()
 
 
     for (int i=0;i<4;i++) {
-        int money = PlayerMoney[i].GetAmount();
+        // int money = PlayerMoney[i].GetAmount();
+        int money = (player[i].GetMoneyObject()).GetAmount();
 
         //Dollar sign
         SDL_Rect Rect_D = {NestedArray[i][0][0],NestedArray[i][0][1],NestedArray[i][0][2],NestedArray[i][0][3]};
