@@ -397,37 +397,33 @@ int Game::RollDice() {
     return random;
 }
 
-
 void Game::IsRPressed()
 {
+    bool rPressed = false;
 
-    bool exitLoop = false;
-
-    while (!exitLoop)
+    while (!rPressed)
     {
-        
         HandleEvents();
-        if (returnQuit())
-        {
-            exitLoop=true;
-        }
 
         SDL_Event e;
-        while (SDL_PollEvent(&e) != 0)
-        {   
+        if (SDL_PollEvent(&e) != 0)
+        {
             if (e.type == SDL_KEYDOWN)
-            {   
+            {
                 if (e.key.keysym.sym == SDLK_r)
                 {
-                    exitLoop = true; // Exit the loop on 'B' press
+                    rPressed = true; // Exit the loop on 'R' press
                 }
-                
             }
         }
 
+        if (returnQuit())
+        {
+            rPressed = true;
+        }
     }
-
 }
+
 
 
 

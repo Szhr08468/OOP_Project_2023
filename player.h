@@ -25,9 +25,10 @@ class Player : public Game
     void SubMoney(int m);
     void DoCommunityChest(int x);
     void DoChance(int x);
-
+    
 
     private:
+    
     std::string name; 
     int position;
     Piece piece;

@@ -27,15 +27,23 @@ bool Game::Update()
     }
     else if (currentState == GameState::State::Player1Turn)
     {           
-        // pos_p1 = ( pos_p1 + RollDice() ) %40;
-        // player[0].ChangePosition(pos_p1);
-
+        
         if (player[0].InJail==false)
         {
             IsRPressed();
-            RollDice();
+            
+            pos_p1 = pos_p1 + RollDice();
+            if (pos_p1>39)
+            {
+                player[0].AddMoney(200);
+                pos_p1 = pos_p1%40;
+            }
+
+            
+            
             
         }
+
         
         gamestate.SetState(GameState::State::Player2Turn);
     }
