@@ -127,6 +127,74 @@ SDL_Texture* Game::LoadTexture(const char* filePath)
     return texture;
 }
 
+void Game::LoadAllTextures() 
+{
+    // Roll Dice:
+    D1 = LoadTexture("assets/Dice/dice1.png");
+    D2 = LoadTexture("assets/Dice/dice2.png");
+    D3 = LoadTexture("assets/Dice/dice3.png");
+    D4 = LoadTexture("assets/Dice/dice4.png");
+    D5 = LoadTexture("assets/Dice/dice5.png");
+    D6 = LoadTexture("assets/Dice/dice6.png");
+
+    D_tex.push_back(D1);
+    D_tex.push_back(D2);
+    D_tex.push_back(D3);
+    D_tex.push_back(D4);
+    D_tex.push_back(D5);
+    D_tex.push_back(D6);
+
+    //RenderPieces : 
+    pieceTexture1 = LoadTexture("assets/Pieces/p1.png");
+    pieceTexture2 = LoadTexture("assets/Pieces/p2.png");
+    pieceTexture3 = LoadTexture("assets/Pieces/p3.png");
+    pieceTexture4 = LoadTexture("assets/Pieces/p4.png");
+
+    //RenderPlayerIcons : 
+    p1_T = LoadTexture("assets/player_icon/p1_Turn.png");
+    p1_NT = LoadTexture("assets/player_icon/p1_NoTurn.png");
+    p2_T = LoadTexture("assets/player_icon/p2_Turn.png");
+    p2_NT = LoadTexture("assets/player_icon/p2_NoTurn.png");
+    p3_T = LoadTexture("assets/player_icon/p3_Turn.png");
+    p3_NT = LoadTexture("assets/player_icon/p3_NoTurn.png");
+    p4_T = LoadTexture("assets/player_icon/p4_Turn.png");
+    p4_NT = LoadTexture("assets/player_icon/p4_NoTurn.png");
+
+    //RenderPlayerMoney :
+    p1_D = LoadTexture("assets/money/p1_dollar.png");
+    p2_D = LoadTexture("assets/money/p2_dollar.png");
+    p3_D = LoadTexture("assets/money/p3_dollar.png");
+    p4_D = LoadTexture("assets/money/p4_dollar.png");
+    zero = LoadTexture("assets/money/0.png");
+    one = LoadTexture("assets/money/1.png");
+    two = LoadTexture("assets/money/2.png");
+    three = LoadTexture("assets/money/3.png");
+    four = LoadTexture("assets/money/4.png");
+    five = LoadTexture("assets/money/5.png");
+    six = LoadTexture("assets/money/6.png");
+    seven = LoadTexture("assets/money/7.png");
+    eight = LoadTexture("assets/money/8.png");
+    nine = LoadTexture("assets/money/9.png");
+    tex.push_back(zero);
+    tex.push_back(one);
+    tex.push_back(two);
+    tex.push_back(three);
+    tex.push_back(four);
+    tex.push_back(five);
+    tex.push_back(six);
+    tex.push_back(seven);
+    tex.push_back(eight);
+    tex.push_back(nine);
+    tex.push_back(p1_D);
+    tex.push_back(p2_D);
+    tex.push_back(p3_D);
+    tex.push_back(p4_D);
+
+    //RenderBackground :
+    WoodenbackgroundTexture = LoadTexture("assets/Screen/wooden_bg.png");
+
+
+}
 
 void Game::DisplayStartingScreen(Uint32 duration)
 {
@@ -213,6 +281,42 @@ bool Game::DisplayCardForBuy(const char* filePath)
     return BUY;
 }
 
+void Game::DisplayCard(const char* filePath)
+{
+    SDL_Texture* startingScreenTexture = LoadTexture(filePath); // Implement LoadTexture according to your setup
+    if (!startingScreenTexture)
+    {
+        return;
+    }
+
+    // Set the position and dimensions of the card
+    int cardWidth = 300;
+    int cardHeight = 400;
+    int cardX = (screenWidth - cardWidth) / 2;
+    int cardY = (screenHeight - cardHeight) / 2;
+
+    SDL_Rect cardRect = {cardX, cardY, cardWidth, cardHeight};
+
+    // Render the starting screen image
+    SDL_RenderClear(gRenderer);
+    Render();
+    SDL_RenderCopy(gRenderer, startingScreenTexture, NULL, &cardRect);
+    SDL_RenderPresent(gRenderer);
+
+    Uint32 duration = 3000;
+
+    // Wait for the specified duration (in milliseconds)
+    Uint32 startTime = SDL_GetTicks();
+    while (SDL_GetTicks() - startTime < duration)
+    {
+        // Optionally, you can handle user input during this time
+        HandleEvents();
+    }
+
+    // Release the starting screen texture
+    SDL_DestroyTexture(startingScreenTexture);
+}
+
 void Game::DisplayChanceOrComunnityChest(const char* filePath)
 {
     SDL_Texture* startingScreenTexture = LoadTexture(filePath); // Implement LoadTexture according to your setup
@@ -252,24 +356,6 @@ void Game::DisplayChanceOrComunnityChest(const char* filePath)
 int Game::RollDice() {
     int random = (rand() % 5)+1;
 
-    SDL_Texture* D1 = LoadTexture("assets/Dice/dice1.png");
-    SDL_Texture* D2 = LoadTexture("assets/Dice/dice2.png");
-    SDL_Texture* D3 = LoadTexture("assets/Dice/dice3.png");
-    SDL_Texture* D4 = LoadTexture("assets/Dice/dice4.png");
-    SDL_Texture* D5 = LoadTexture("assets/Dice/dice5.png");
-    SDL_Texture* D6 = LoadTexture("assets/Dice/dice6.png");
-
-    std::vector<SDL_Texture*> tex;
-    tex.push_back(D1);
-    tex.push_back(D2);
-    tex.push_back(D3);
-    tex.push_back(D4);
-    tex.push_back(D5);
-    tex.push_back(D6);
-
-    // x = 345->805
-    // y = 95->555
-
     int x = (rand()%461)+345;
     int y =(rand()%461)+95;
 
@@ -281,32 +367,17 @@ int Game::RollDice() {
 
         SDL_RenderClear(gRenderer);
         Render();
-        SDL_RenderCopy(gRenderer, tex[n], NULL, &Dice_Rect);
+        SDL_RenderCopy(gRenderer, D_tex[n], NULL, &Dice_Rect);
         SDL_RenderPresent(gRenderer);
 
     }
 
-
     SDL_RenderClear(gRenderer);
     Render();
-    SDL_RenderCopy(gRenderer, tex[random-1], NULL, &Dice_Rect);
+    SDL_RenderCopy(gRenderer, D_tex[random-1], NULL, &Dice_Rect);
     SDL_RenderPresent(gRenderer);
 
     SDL_Delay(2000);
-
-
-    for (SDL_Texture* texture : tex) {
-        SDL_DestroyTexture(texture);
-    }
-    tex.clear();
-
-    
-    SDL_DestroyTexture(D1);
-    SDL_DestroyTexture(D2);
-    SDL_DestroyTexture(D3);
-    SDL_DestroyTexture(D4);
-    SDL_DestroyTexture(D5);
-    SDL_DestroyTexture(D6);
 
     return random;
 }
@@ -362,12 +433,6 @@ bool Game::HandleEvents()
 
 void Game::RenderPieces() 
 {
-    SDL_Texture* pieceTexture1 = LoadTexture("assets/Pieces/p1.png");
-    SDL_Texture* pieceTexture2 = LoadTexture("assets/Pieces/p2.png");
-    SDL_Texture* pieceTexture3 = LoadTexture("assets/Pieces/p3.png");
-    SDL_Texture* pieceTexture4 = LoadTexture("assets/Pieces/p4.png");
-
-
     for (size_t i = 0; i < 4; i++) {
         SDL_Rect destRect = (player[i].GetPieceObject()).GetRect();
         if (i == 0) {
@@ -381,31 +446,17 @@ void Game::RenderPieces()
         }
     }
 
-    SDL_DestroyTexture(pieceTexture1);
-    SDL_DestroyTexture(pieceTexture2);
-    SDL_DestroyTexture(pieceTexture3);
-    SDL_DestroyTexture(pieceTexture4);
 }
 
 void Game::RenderPlayerIcons() 
 {   
-    SDL_Texture* p1_T = LoadTexture("assets/player_icon/p1_Turn.png");
-    SDL_Texture* p1_NT = LoadTexture("assets/player_icon/p1_NoTurn.png");
-    SDL_Texture* p2_T = LoadTexture("assets/player_icon/p2_Turn.png");
-    SDL_Texture* p2_NT = LoadTexture("assets/player_icon/p2_NoTurn.png");
-    SDL_Texture* p3_T = LoadTexture("assets/player_icon/p3_Turn.png");
-    SDL_Texture* p3_NT = LoadTexture("assets/player_icon/p3_NoTurn.png");
-    SDL_Texture* p4_T = LoadTexture("assets/player_icon/p4_Turn.png");
-    SDL_Texture* p4_NT = LoadTexture("assets/player_icon/p4_NoTurn.png");
 
     SDL_Rect Rect1 = {0,0,180,180};
     SDL_Rect Rect2 = {1020,0,180,180};
     SDL_Rect Rect3 = {0,520,180,180};
     SDL_Rect Rect4 = {1020,520,180,180};
 
-
     GameState::State currentState = gamestate.GetCurrentState();
-
 
     if (currentState==GameState::State::GameStart) 
     {   
@@ -450,51 +501,10 @@ void Game::RenderPlayerIcons()
         SDL_RenderCopy(gRenderer, p4_NT, NULL, &Rect4);
     }
 
-    SDL_DestroyTexture(p1_T);
-    SDL_DestroyTexture(p1_NT);
-    SDL_DestroyTexture(p2_T);
-    SDL_DestroyTexture(p2_NT);
-    SDL_DestroyTexture(p3_T);
-    SDL_DestroyTexture(p3_NT);
-    SDL_DestroyTexture(p4_T);
-    SDL_DestroyTexture(p4_NT);
-
 }
 
 void Game::RenderPlayerMoney() 
 {
-    SDL_Texture* p1_D = LoadTexture("assets/money/p1_dollar.png");
-    SDL_Texture* p2_D = LoadTexture("assets/money/p2_dollar.png");
-    SDL_Texture* p3_D = LoadTexture("assets/money/p3_dollar.png");
-    SDL_Texture* p4_D = LoadTexture("assets/money/p4_dollar.png");
-    SDL_Texture* zero = LoadTexture("assets/money/0.png");
-    SDL_Texture* one = LoadTexture("assets/money/1.png");
-    SDL_Texture* two = LoadTexture("assets/money/2.png");
-    SDL_Texture* three = LoadTexture("assets/money/3.png");
-    SDL_Texture* four = LoadTexture("assets/money/4.png");
-    SDL_Texture* five = LoadTexture("assets/money/5.png");
-    SDL_Texture* six = LoadTexture("assets/money/6.png");
-    SDL_Texture* seven = LoadTexture("assets/money/7.png");
-    SDL_Texture* eight = LoadTexture("assets/money/8.png");
-    SDL_Texture* nine = LoadTexture("assets/money/9.png");
-
-    std::vector<SDL_Texture*> tex;
-    tex.push_back(zero);
-    tex.push_back(one);
-    tex.push_back(two);
-    tex.push_back(three);
-    tex.push_back(four);
-    tex.push_back(five);
-    tex.push_back(six);
-    tex.push_back(seven);
-    tex.push_back(eight);
-    tex.push_back(nine);
-
-    tex.push_back(p1_D);
-    tex.push_back(p2_D);
-    tex.push_back(p3_D);
-    tex.push_back(p4_D);
-
     int NestedArray[4][6][4] = {
         {
             // Player 1 RECTS
@@ -574,40 +584,17 @@ void Game::RenderPlayerMoney()
         
     }
 
-    for (SDL_Texture* texture : tex) {
-        SDL_DestroyTexture(texture);
-    }
-    tex.clear();
-
-    
-    SDL_DestroyTexture(p1_D);
-    SDL_DestroyTexture(p2_D);
-    SDL_DestroyTexture(p3_D);
-    SDL_DestroyTexture(p4_D);
-    SDL_DestroyTexture(zero);
-    SDL_DestroyTexture(one);
-    SDL_DestroyTexture(two);
-    SDL_DestroyTexture(three);
-    SDL_DestroyTexture(four);
-    SDL_DestroyTexture(five);
-    SDL_DestroyTexture(six);
-    SDL_DestroyTexture(seven);
-    SDL_DestroyTexture(eight);
-    SDL_DestroyTexture(nine);
 }
 
 void Game:: RenderBackground() 
 {
-    // Load the background image as a texture
-    SDL_Texture* backgroundTexture = LoadTexture("assets/Screen/wooden_bg.png"); // Replace "background.png" with the path to your image
-
-    if (backgroundTexture == NULL)
+    if (WoodenbackgroundTexture == NULL)
     {
         printf("Failed to load the background image! SDL_Error: %s\n", SDL_GetError());
     }
 
     // Render the background texture
-    SDL_RenderCopy(gRenderer, backgroundTexture, NULL, NULL);
+    SDL_RenderCopy(gRenderer, WoodenbackgroundTexture, NULL, NULL);
 }
 
 void Game::Render()
@@ -622,11 +609,62 @@ void Game::Render()
 }
 
 void Game::Cleanup()
-{
+{   
+    //Roll Dice: 
+    for (SDL_Texture* texture : D_tex) {
+        SDL_DestroyTexture(texture);
+    }
+    D_tex.clear();
+    SDL_DestroyTexture(D1);
+    SDL_DestroyTexture(D2);
+    SDL_DestroyTexture(D3);
+    SDL_DestroyTexture(D4);
+    SDL_DestroyTexture(D5);
+    SDL_DestroyTexture(D6);
+
+    //RnderPieces : 
+    SDL_DestroyTexture(pieceTexture1);
+    SDL_DestroyTexture(pieceTexture2);
+    SDL_DestroyTexture(pieceTexture3);
+    SDL_DestroyTexture(pieceTexture4);
+
+    //RenderPlayerIcons :
+    SDL_DestroyTexture(p1_T);
+    SDL_DestroyTexture(p1_NT);
+    SDL_DestroyTexture(p2_T);
+    SDL_DestroyTexture(p2_NT);
+    SDL_DestroyTexture(p3_T);
+    SDL_DestroyTexture(p3_NT);
+    SDL_DestroyTexture(p4_T);
+    SDL_DestroyTexture(p4_NT);
+
+    //RenderPlayerMoney : 
+    for (SDL_Texture* texture : tex) {
+        SDL_DestroyTexture(texture);
+    }
+    tex.clear();
+    SDL_DestroyTexture(p1_D);
+    SDL_DestroyTexture(p2_D);
+    SDL_DestroyTexture(p3_D);
+    SDL_DestroyTexture(p4_D);
+    SDL_DestroyTexture(zero);
+    SDL_DestroyTexture(one);
+    SDL_DestroyTexture(two);
+    SDL_DestroyTexture(three);
+    SDL_DestroyTexture(four);
+    SDL_DestroyTexture(five);
+    SDL_DestroyTexture(six);
+    SDL_DestroyTexture(seven);
+    SDL_DestroyTexture(eight);
+    SDL_DestroyTexture(nine);
+
+    //Others :
+
     Mix_FreeMusic(backgroundMusic);
     Mix_Quit();
 
     SDL_DestroyTexture(backgroundTexture);
+    SDL_DestroyTexture(WoodenbackgroundTexture);
     SDL_DestroyRenderer(gRenderer);
     SDL_DestroyWindow(gWindow);
 

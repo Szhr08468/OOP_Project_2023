@@ -6,22 +6,11 @@
 #include <SDL_mixer.h>
 #include <vector>
 #include <string>
-#include <cstdlib> // Include this header for rand() function
 
 #include "GameState.h"
 #include "pieces.h"
 #include "money.h"
 
-
-// std::vector<Player> p;
-//     Player p1;
-//     Player p2;
-//     Player p3;
-//     Player p4;
-//     p.push_back(p1);
-//     p.push_back(p2);
-//     p.push_back(p3);
-//     p.push_back(p4);
 
 class Player;
 
@@ -35,8 +24,10 @@ public:
     bool Init(int screenWidth, int screenHeight, const char* windowTitle);
     bool LoadAssets(const char* backgroundImageFile, const char* backgroundMusicFile);
     SDL_Texture* LoadTexture(const char* filePath);
+    void LoadAllTextures(); 
     void DisplayStartingScreen(Uint32 duration);
     bool DisplayCardForBuy(const char* filePath);
+    void DisplayCard(const char* filePath);
     void DisplayChanceOrComunnityChest(const char* filePath);
     int  RollDice();
     bool IsKeyPressed(SDL_Scancode key);
@@ -52,10 +43,11 @@ public:
     void RenderBackground();
     void Render();
     void Cleanup();
-    void docommunitychest(int a, int p, int arr1[40][2]);
-    void dochance(int b, int p, int arr[40][2]);
 
 protected:
+
+    GameState gamestate;
+    std::vector<Player> player;
 
     int red[40][2] = {
 
@@ -106,96 +98,148 @@ private:
     SDL_Window* gWindow;
     SDL_Renderer* gRenderer;
     SDL_Texture* backgroundTexture;
+    SDL_Texture* WoodenbackgroundTexture;
     Mix_Music* backgroundMusic;
 
     int screenWidth;
     int screenHeight;
     SDL_Rect backgroundRect;
 
-    std::vector<Player> player;
-    GameState gamestate;
-
 
     std::string chest_paths[15] = {
-    "assets/CommunityChest/CommunityChest0.jpg",
-    "assets/CommunityChest/CommunityChest1.jpg",
-    "assets/CommunityChest/CommunityChest2.jpg",
-    "assets/CommunityChest/CommunityChest3.jpg",
-    "assets/CommunityChest/CommunityChest4.jpg",
-    "assets/CommunityChest/CommunityChest5.jpg",
-    "assets/CommunityChest/CommunityChest6.jpg",
-    "assets/CommunityChest/CommunityChest7.jpg",
-    "assets/CommunityChest/CommunityChest8.jpg",
-    "assets/CommunityChest/CommunityChest9.jpg",
-    "assets/CommunityChest/CommunityChest10.jpg",
-    "assets/CommunityChest/CommunityChest11.jpg",
-    "assets/CommunityChest/CommunityChest12.jpg",
-    "assets/CommunityChest/CommunityChest13.jpg",
-    "assets/CommunityChest/CommunityChest14.jpg"
-};
+        "assets/CommunityChest/CommunityChest0.jpg",
+        "assets/CommunityChest/CommunityChest1.jpg",
+        "assets/CommunityChest/CommunityChest2.jpg",
+        "assets/CommunityChest/CommunityChest3.jpg",
+        "assets/CommunityChest/CommunityChest4.jpg",
+        "assets/CommunityChest/CommunityChest5.jpg",
+        "assets/CommunityChest/CommunityChest6.jpg",
+        "assets/CommunityChest/CommunityChest7.jpg",
+        "assets/CommunityChest/CommunityChest8.jpg",
+        "assets/CommunityChest/CommunityChest9.jpg",
+        "assets/CommunityChest/CommunityChest10.jpg",
+        "assets/CommunityChest/CommunityChest11.jpg",
+        "assets/CommunityChest/CommunityChest12.jpg",
+        "assets/CommunityChest/CommunityChest13.jpg",
+        "assets/CommunityChest/CommunityChest14.jpg"
+    };
 
     std::string chance_paths [15] = {
-    "assets/Chance/Chance0.jpg",
-    "assets/Chance/Chance1.jpg",
-    "assets/Chance/Chance2.jpg",
-    "assets/Chance/Chance3.jpg",
-    "assets/Chance/Chance4.jpg",
-    "assets/Chance/Chance5.jpg",
-    "assets/Chance/Chance6.jpg",
-    "assets/Chance/Chance7.jpg",
-    "assets/Chance/Chance8.jpg",
-    "assets/Chance/Chance9.jpg",
-    "assets/Chance/Chance10.jpg",
-    "assets/Chance/Chance11.jpg",
-    "assets/Chance/Chance12.jpg",
-    "assets/Chance/Chance13.jpg",
-    "assets/Chance/Chance14.jpg"
-};
+        "assets/Chance/Chance0.jpg",
+        "assets/Chance/Chance1.jpg",
+        "assets/Chance/Chance2.jpg",
+        "assets/Chance/Chance3.jpg",
+        "assets/Chance/Chance4.jpg",
+        "assets/Chance/Chance5.jpg",
+        "assets/Chance/Chance6.jpg",
+        "assets/Chance/Chance7.jpg",
+        "assets/Chance/Chance8.jpg",
+        "assets/Chance/Chance9.jpg",
+        "assets/Chance/Chance10.jpg",
+        "assets/Chance/Chance11.jpg",
+        "assets/Chance/Chance12.jpg",
+        "assets/Chance/Chance13.jpg",
+        "assets/Chance/Chance14.jpg"
+    };
 
 
 
 
-std::string all_cards[40][3] = {
-    {"Go", "  "},
-    {"Old Kent Road", "assets/properties/old_kent.jpg","60"},
-    {"Community Chest", "assets/CommunityChest/CommunityChest" + std::to_string(rand() % 15) + ".jpg","0"},
-    {"Whitechapel Road", "assets/properties/whitechapel_road.jpg","60"},
-    {"Income Tax", "  ","200"},
-    {"King's Cross Station", "assets/properties/kingcross_station.jpg","200"},
-    {"The Angel Islington", "assets/properties/the_angel_islington.jpg","100"},
-    {"Chance", "assets/Chance/Chance" + std::to_string(rand() % 15) + ".jpg","0"},
-    {"Euston Road", "assets/properties/euston_road.jpg","100"},
-    {"Pentonville Road", "assets/properties/pentonville_road.jpg","120"},
-    {"Jail", "  ","0"},
-    {"Pall Mall", "assets/properties/pallmall.jpg","140"},
-    {"Electric Company", "assets/properties/electric_company.jpg","150"},
-    {"Whitehall", "assets/properties/whitehall.jpg","140"},
-    {"Northumberland Avenue", "assets/properties/northumberland_avenue.jpg","160"},
-    {"Marylebone Station", "assets/properties/marylebone_station.jpg","200"},
-    {"Bow Street", "assets/properties/bow_street.jpg","180"},
-    {"Community Chest", "assets/CommunityChest/CommunityChest" + std::to_string(rand() % 15) + ".jpg","0"},
-    {"Marlborough Street", "assets/properties/marlborough_street.jpg","180"},
-    {"Vine Street", "assets/properties/vine_street.jpg","200"},
-    {"Free Parking", "  ","200"},
-    {"Strand", "assets/properties/strand.jpg","220"},
-    {"Chance", "assets/Chance/Chance" + std::to_string(rand() % 15) + ".jpg","0"},
-    {"Fleet Street", "assets/properties/fleet_street.jpg","220"},
-    {"Trafalgar Square", "assets/properties/trafalgar_square.jpg","240"},
-    {"Fenchurch St. Station", "assets/properties/fenchurch_street_station.jpg","200"},
-    {"Leicester Square", "assets/properties/leicester_square.jpg","260"},
-    {"Coventry Street", "assets/properties/coventry_street.jpg","260"},
-    {"Water Works", "assets/properties/water_works.jpg","150"},
-    {"Piccadilly", "assets/properties/piccadilly.jpg","280"},
-    {"Go to Jail", "  ","0"},
-    {"Regent Street", "assets/properties/regent_street.jpg","300"},
-    {"Oxford Street", "assets/properties/oxfors_street.jpg","300"},
-    {"Community Chest", "assets/CommunityChest/CommunityChest" + std::to_string(rand() % 15) + ".jpg","0"},
-    {"Bond Street", "assets/properties/bond_street.jpg","320"},
-    {"Liverpool St. Station", "assets/properties/liverpool_street_station.jpg","200"},
-    {"Chance", "assets/Chance/Chance" + std::to_string(rand() % 15) + ".jpg","0"},
-    {"Park Lane", "assets/properties/park_lane.jpg","350"},
-    {"Super Tax", "  ","100"},
-    {"Mayfair", "assets/properties/mayfair.jpg","400"}
-};
+    std::string all_cards[40][3] = {
+        {"Go", "  ", "200"},
+        {"Old Kent Road", "assets/properties/old_kent.jpg","60"},
+        {"Community Chest", "assets/CommunityChest/CommunityChest" + std::to_string(rand() % 15) + ".jpg","0"},
+        {"Whitechapel Road", "assets/properties/whitechapel_road.jpg","60"},
+        {"Income Tax", "  ","200"},
+        {"King's Cross Station", "assets/properties/kingcross_station.jpg","200"},
+        {"The Angel Islington", "assets/properties/the_angel_islington.jpg","100"},
+        {"Chance", "assets/Chance/Chance" + std::to_string(rand() % 15) + ".jpg","0"},
+        {"Euston Road", "assets/properties/euston_road.jpg","100"},
+        {"Pentonville Road", "assets/properties/pentonville_road.jpg","120"},
+        {"Jail", "  ","0"},
+        {"Pall Mall", "assets/properties/pallmall.jpg","140"},
+        {"Electric Company", "assets/properties/electric_company.jpg","150"},
+        {"Whitehall", "assets/properties/whitehall.jpg","140"},
+        {"Northumberland Avenue", "assets/properties/northumberland_avenue.jpg","160"},
+        {"Marylebone Station", "assets/properties/marylebone_station.jpg","200"},
+        {"Bow Street", "assets/properties/bow_street.jpg","180"},
+        {"Community Chest", "assets/CommunityChest/CommunityChest" + std::to_string(rand() % 15) + ".jpg","0"},
+        {"Marlborough Street", "assets/properties/marlborough_street.jpg","180"},
+        {"Vine Street", "assets/properties/vine_street.jpg","200"},
+        {"Free Parking", "  ","200"},
+        {"Strand", "assets/properties/strand.jpg","220"},
+        {"Chance", "assets/Chance/Chance" + std::to_string(rand() % 15) + ".jpg","0"},
+        {"Fleet Street", "assets/properties/fleet_street.jpg","220"},
+        {"Trafalgar Square", "assets/properties/trafalgar_square.jpg","240"},
+        {"Fenchurch St. Station", "assets/properties/fenchurch_street_station.jpg","200"},
+        {"Leicester Square", "assets/properties/leicester_square.jpg","260"},
+        {"Coventry Street", "assets/properties/coventry_street.jpg","260"},
+        {"Water Works", "assets/properties/water_works.jpg","150"},
+        {"Piccadilly", "assets/properties/piccadilly.jpg","280"},
+        {"Go to Jail", "  ","0"},
+        {"Regent Street", "assets/properties/regent_street.jpg","300"},
+        {"Oxford Street", "assets/properties/oxfors_street.jpg","300"},
+        {"Community Chest", "assets/CommunityChest/CommunityChest" + std::to_string(rand() % 15) + ".jpg","0"},
+        {"Bond Street", "assets/properties/bond_street.jpg","320"},
+        {"Liverpool St. Station", "assets/properties/liverpool_street_station.jpg","200"},
+        {"Chance", "assets/Chance/Chance" + std::to_string(rand() % 15) + ".jpg","0"},
+        {"Park Lane", "assets/properties/park_lane.jpg","350"},
+        {"Super Tax", "  ","100"},
+        {"Mayfair", "assets/properties/mayfair.jpg","400"}
+    };
+
+
+    //////////////////////////////////////////////////////////////
+    // These are SDL_Textures which were being created and destroyed which was occupying video memory
+    // Becuase the fuctions were being called again and again after some some the game was crashing
+    // So i am making these member variables
+
+    // Roll Dice :
+
+    SDL_Texture* D1 ;
+    SDL_Texture* D2 ;
+    SDL_Texture* D3 ;
+    SDL_Texture* D4 ;
+    SDL_Texture* D5 ;
+    SDL_Texture* D6 ;
+    std::vector<SDL_Texture*> D_tex;
+
+    // RenderPieces : 
+
+    SDL_Texture* pieceTexture1;
+    SDL_Texture* pieceTexture2;
+    SDL_Texture* pieceTexture3;
+    SDL_Texture* pieceTexture4;
+
+    //RenderPlayerIcons : 
+
+    SDL_Texture* p1_T;
+    SDL_Texture* p1_NT;
+    SDL_Texture* p2_T;
+    SDL_Texture* p2_NT;
+    SDL_Texture* p3_T;
+    SDL_Texture* p3_NT;
+    SDL_Texture* p4_T;
+    SDL_Texture* p4_NT;
+
+    //RenderPlayerMoney :
+
+    SDL_Texture* p1_D;
+    SDL_Texture* p2_D;
+    SDL_Texture* p3_D;
+    SDL_Texture* p4_D;
+    SDL_Texture* zero;
+    SDL_Texture* one;
+    SDL_Texture* two;
+    SDL_Texture* three;
+    SDL_Texture* four;
+    SDL_Texture* five;
+    SDL_Texture* six;
+    SDL_Texture* seven;
+    SDL_Texture* eight;
+    SDL_Texture* nine;
+    std::vector<SDL_Texture*> tex;
+    
+
 };
 #endif
