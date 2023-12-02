@@ -19,6 +19,11 @@ bool Game::Update()
     // static int mon2 = 1500;
     // static int mon3 = 1500;
 
+    int pos_p1 = player[0].GetPlayerPosition();
+    int pos_p2 = player[1].GetPlayerPosition();
+    int pos_p3 = player[2].GetPlayerPosition();
+    int pos_p4 = player[3].GetPlayerPosition();
+
     bool GameOver = false;
 
     GameState::State currentState = gamestate.GetCurrentState();
@@ -26,33 +31,36 @@ bool Game::Update()
     if (currentState == GameState::State::GameStart)
     {
         
-
-        // PlayerMoney[0].SetAmount(mon0);
-        // PlayerMoney[1].SetAmount(mon1);
-        // PlayerMoney[2].SetAmount(mon2);
-        // PlayerMoney[3].SetAmount(mon3);
-        // gamePieces[0].SetPosition(red[0][0], red[0][1]);
-        // gamePieces[1].SetPosition(green[0][0], green[0][1]);
-        // gamePieces[2].SetPosition(pink[0][0], pink[0][1]);
-        // gamePieces[3].SetPosition(blue[0][0], blue[0][1]);
         gamestate.SetState(GameState::State::Player1Turn);
     }
     else if (currentState == GameState::State::Player1Turn)
-    {
+    {   
+        pos_p1 = ( pos_p1 + RollDice() ) %40;
+        player[0].ChangePosition(pos_p1);
         gamestate.SetState(GameState::State::Player2Turn);
     }
     else if (currentState == GameState::State::Player2Turn)
-    {
+    {   
+        pos_p2 = ( pos_p2 + RollDice() ) %40;
+        player[1].ChangePosition(pos_p2);
         gamestate.SetState(GameState::State::Player3Turn);
     }
     else if (currentState == GameState::State::Player3Turn)
-    {
+    {   
+        pos_p3 = ( pos_p3 + RollDice() ) %40;
+        player[2].ChangePosition(pos_p3);
         gamestate.SetState(GameState::State::Player4Turn);
     }
     else if (currentState == GameState::State::Player4Turn)
     {
+        pos_p4 = ( pos_p4 + RollDice() ) %40;
+        player[3].ChangePosition(pos_p4);
         gamestate.SetState(GameState::State::Player1Turn);
     }
-    SDL_Delay(1000);
+
+
+    // SDL_Delay(1000);
+    
+
     return GameOver;
 }

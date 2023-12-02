@@ -28,6 +28,8 @@ int main(int argc, char* args[])
         return 3;
     }
 
+    game.LoadAllTextures();
+
     game.PlayBackgroundMusic();
 
     game.DisplayStartingScreen(3000);
