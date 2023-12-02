@@ -29,6 +29,7 @@ class Player : public Game
 
     private:
     
+    bool buy_or_not [40] = {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false};
     std::string name; 
     int position;
     Piece piece;

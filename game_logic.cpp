@@ -38,6 +38,23 @@ bool Game::Update()
                 player[0].AddMoney(200);
                 pos_p1 = pos_p1%40;
             }
+            if (all_cards[pos_p1][0] != "Community Chest" && all_cards[pos_p1][0] != "Chance" && all_cards[pos_p1][0] != "Go" && all_cards[pos_p1][0] != "Income Tax" && all_cards[pos_p1][0] != "Jail" && all_cards[pos_p1][0] != "Go to Jail" && all_cards[pos_p1][0] != "Free Parking" && all_cards[pos_p1][0] != "Super Tax"){
+                if(((player[0].buy_or_not)[pos_p1]==true) || ((player[1].buy_or_not)[pos_p1]==true) || ((player[2].buy_or_not)[pos_p1]==true) || ((player[3].buy_or_not)[pos_p1]==true)){
+                    DisplayCard((all_cards[pos_p1][1]).c_str());
+                }
+                else{
+                    DisplayCardForBuy((all_cards[pos_p1][1]).c_str());
+                    if((DisplayCardForBuy((all_cards[pos_p1][1]).c_str()))==true){
+                        player[0].SubMoney(std::stoi(all_cards[pos_p1][2]));
+                    }
+                }
+            }
+            else if(){
+
+            }
+            else if(){
+                
+            }
 
             
             
