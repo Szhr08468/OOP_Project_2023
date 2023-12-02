@@ -32,6 +32,8 @@ bool Game::Update()
 
         if (player[0].InJail==false)
         {
+            IsRPressed();
+            RollDice();
             
         }
         

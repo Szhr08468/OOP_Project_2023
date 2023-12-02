@@ -30,7 +30,7 @@ public:
     void DisplayCard(const char* filePath);
     void DisplayChanceOrComunnityChest(const char* filePath);
     int  RollDice();
-    bool IsKeyPressed(SDL_Scancode key);
+    void IsRPressed();
     
     void InitializePlayers();
     void PlayBackgroundMusic();

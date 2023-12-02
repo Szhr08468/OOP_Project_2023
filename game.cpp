@@ -398,12 +398,35 @@ int Game::RollDice() {
 }
 
 
-bool Game::IsKeyPressed(SDL_Scancode key)
+void Game::IsRPressed()
 {
-    const Uint8* keyState = SDL_GetKeyboardState(NULL);
 
-    // Use keyState[key] to check the state of the key
-    return keyState[key] != 0;
+    bool exitLoop = false;
+
+    while (!exitLoop)
+    {
+        
+        HandleEvents();
+        if (returnQuit())
+        {
+            exitLoop=true;
+        }
+
+        SDL_Event e;
+        while (SDL_PollEvent(&e) != 0)
+        {   
+            if (e.type == SDL_KEYDOWN)
+            {   
+                if (e.key.keysym.sym == SDLK_r)
+                {
+                    exitLoop = true; // Exit the loop on 'B' press
+                }
+                
+            }
+        }
+
+    }
+
 }
 
 
