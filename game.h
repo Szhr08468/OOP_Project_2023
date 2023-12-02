@@ -34,7 +34,8 @@ public:
     
     void InitializePlayers();
     void PlayBackgroundMusic();
-    bool HandleEvents();
+    void HandleEvents();
+    bool returnQuit();
     bool Update();
 
     void RenderPieces();
@@ -43,6 +44,7 @@ public:
     void RenderBackground();
     void Render();
     void Cleanup();
+
 
 protected:
 
@@ -104,6 +106,7 @@ private:
     int screenWidth;
     int screenHeight;
     SDL_Rect backgroundRect;
+    bool quit = false;
 
 
     std::string chest_paths[15] = {

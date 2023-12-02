@@ -88,9 +88,6 @@ void Player::SubMoney(int m)
 
 void Player::DoCommunityChest(int x) 
 {   
-
-    // ChangePosition(x);
-
     if (x==0)
     {
         ChangePosition(0);

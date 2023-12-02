@@ -10,14 +10,6 @@
 
 bool Game::Update()
 {
-    // static int dr = 0;
-    // static int dg = 0;
-    // static int dp = 0;
-    // static int db = 0;
-    // static int mon0 = 1500;
-    // static int mon1 = 1500;
-    // static int mon2 = 1500;
-    // static int mon3 = 1500;
 
     int pos_p1 = player[0].GetPlayerPosition();
     int pos_p2 = player[1].GetPlayerPosition();
@@ -29,14 +21,20 @@ bool Game::Update()
     GameState::State currentState = gamestate.GetCurrentState();
 
     if (currentState == GameState::State::GameStart)
-    {
-        
+    {   
+
         gamestate.SetState(GameState::State::Player1Turn);
     }
     else if (currentState == GameState::State::Player1Turn)
-    {   
-        pos_p1 = ( pos_p1 + RollDice() ) %40;
-        player[0].ChangePosition(pos_p1);
+    {           
+        // pos_p1 = ( pos_p1 + RollDice() ) %40;
+        // player[0].ChangePosition(pos_p1);
+
+        if (player[0].InJail==false)
+        {
+            
+        }
+        
         gamestate.SetState(GameState::State::Player2Turn);
     }
     else if (currentState == GameState::State::Player2Turn)
@@ -59,8 +57,9 @@ bool Game::Update()
     }
 
 
-    // SDL_Delay(1000);
+    SDL_Delay(1000);
     
 
     return GameOver;
 }
+

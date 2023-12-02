@@ -255,24 +255,38 @@ bool Game::DisplayCardForBuy(const char* filePath)
 
         SDL_RenderPresent(gRenderer);
 
-        // Check for events
-        SDL_Event e;
-        while (SDL_PollEvent(&e) != 0)
+        Uint32 duration = 30;
+
+        Uint32 startTime = SDL_GetTicks();
+        while (SDL_GetTicks() - startTime < duration)
         {
-            if (e.type == SDL_KEYDOWN)
+            HandleEvents();
+            if (returnQuit())
             {
-                if (e.key.keysym.sym == SDLK_b)
-                {
-                    BUY = true;
-                    exitLoop = true; // Exit the loop on 'B' press
-                }
-                else if (e.key.keysym.sym == SDLK_n)
-                {
-                    BUY = false;
-                    exitLoop = true; // Exit the loop on 'N' press
+                exitLoop=true;
+            }
+
+            SDL_Event e;
+            while (SDL_PollEvent(&e) != 0)
+            {   
+                if (e.type == SDL_KEYDOWN)
+                {   
+                    if (e.key.keysym.sym == SDLK_b)
+                    {
+                        BUY = true;
+                        exitLoop = true; // Exit the loop on 'B' press
+                    }
+                    else if (e.key.keysym.sym == SDLK_n)
+                    {
+                        BUY = false;
+                        exitLoop = true; // Exit the loop on 'N' press
+                    }
                 }
             }
+
+
         }
+
     }
 
     // Release the starting screen texture
@@ -369,6 +383,7 @@ int Game::RollDice() {
         Render();
         SDL_RenderCopy(gRenderer, D_tex[n], NULL, &Dice_Rect);
         SDL_RenderPresent(gRenderer);
+        SDL_Delay(250);
 
     }
 
@@ -377,7 +392,7 @@ int Game::RollDice() {
     SDL_RenderCopy(gRenderer, D_tex[random-1], NULL, &Dice_Rect);
     SDL_RenderPresent(gRenderer);
 
-    SDL_Delay(2000);
+    SDL_Delay(1000);
 
     return random;
 }
@@ -418,17 +433,22 @@ void Game::PlayBackgroundMusic()
     Mix_PlayMusic(backgroundMusic, -1);
 }
 
-bool Game::HandleEvents()
+void Game::HandleEvents()
 {
     SDL_Event e;
     while (SDL_PollEvent(&e) != 0)
     {
         if (e.type == SDL_QUIT)
         {
-            return true;
+            quit =  true;
         }
     }
-    return false;
+
+}
+
+bool Game::returnQuit() 
+{
+    return quit;
 }
 
 void Game::RenderPieces() 

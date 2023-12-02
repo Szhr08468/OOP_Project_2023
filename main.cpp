@@ -37,15 +37,14 @@ int main(int argc, char* args[])
     game.InitializePlayers();
 
     
-    bool handle_events_quit = false;
     bool update_quit = false;
 
-    while (!handle_events_quit and !update_quit)
+    while (!(game.returnQuit()) and !update_quit)
     {
 
         game.Render(); // Calls SDL_RenderClear to clear the screen
         update_quit = game.Update();
-        handle_events_quit = game.HandleEvents();
+        game.HandleEvents();
         
     }
 

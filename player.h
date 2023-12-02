@@ -32,6 +32,8 @@ class Player : public Game
     int position;
     Piece piece;
     Money money;
+
+    public:
     bool GetOutJailCard[2]; //First Card is of ComuunityChest and the second is of Chance
     bool InJail;
 
