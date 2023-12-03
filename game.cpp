@@ -326,11 +326,29 @@ void Game::DisplayCard(const char* filePath)
     Render();
     SDL_RenderCopy(gRenderer, startingScreenTexture, NULL, &cardRect);
 
-    // Render a thick red line (for example, a filled rectangle near the top of the card)
-    SDL_SetRenderDrawColor(gRenderer, 255, 0, 0, 255); // Red color
-    SDL_Rect thickLineRect = {cardX, cardY, cardWidth, 30}; // Adjust the position and thickness as needed
-    SDL_RenderFillRect(gRenderer, &thickLineRect);
-    SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 255); // Reset color to black
+    for (int i = 0;i<40;i++){
+        if (all_cards[i][1]==filePath) {
+
+            if ((player[0].buy_or_not)[i]==true) {
+                SDL_SetRenderDrawColor(gRenderer, 255, 0, 0, 255);
+            }
+            else if ((player[1].buy_or_not)[i]==true) {
+                SDL_SetRenderDrawColor(gRenderer, 0, 255, 0, 255);
+            }
+            else if ((player[2].buy_or_not)[i]==true) {
+                SDL_SetRenderDrawColor(gRenderer, 255, 182, 193, 255);
+            }
+            else if ((player[3].buy_or_not)[i]==true) {
+                SDL_SetRenderDrawColor(gRenderer, 0, 0, 255, 255);
+            }
+
+            SDL_Rect thickLineRect = {cardX, cardY, cardWidth, 30}; // Adjust the position and thickness as needed
+            SDL_RenderFillRect(gRenderer, &thickLineRect);
+            break;
+        }
+    }
+
+    
 
     SDL_RenderPresent(gRenderer);
 
@@ -386,7 +404,7 @@ void Game::DisplayChanceOrComunnityChest(const char* filePath)
 }
 
 int Game::RollDice() {
-    int random = (rand() % 5)+1;
+    int random = rand() % 6;
 
     int x = (rand()%461)+345;
     int y =(rand()%461)+95;
@@ -395,7 +413,7 @@ int Game::RollDice() {
 
 
     for (int i=0;i<5;i++) {
-        int n = rand() % 5;
+        int n = rand() % 6;
 
         SDL_RenderClear(gRenderer);
         Render();
@@ -407,12 +425,12 @@ int Game::RollDice() {
 
     SDL_RenderClear(gRenderer);
     Render();
-    SDL_RenderCopy(gRenderer, D_tex[random-1], NULL, &Dice_Rect);
+    SDL_RenderCopy(gRenderer, D_tex[random], NULL, &Dice_Rect);
     SDL_RenderPresent(gRenderer);
 
     SDL_Delay(1000);
 
-    return random;
+    return (random+1);
 }
 
 void Game::IsRPressed()
@@ -605,6 +623,9 @@ void Game::RenderPlayerMoney()
     for (int i=0;i<4;i++) {
         // int money = PlayerMoney[i].GetAmount();
         int money = (player[i].GetMoneyObject()).GetAmount();
+        if (money<0){
+            money=0;
+        }
 
         //Dollar sign
         SDL_Rect Rect_D = {NestedArray[i][0][0],NestedArray[i][0][1],NestedArray[i][0][2],NestedArray[i][0][3]};

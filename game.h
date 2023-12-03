@@ -52,6 +52,49 @@ protected:
     GameState gamestate;
     std::vector<Player> player;
 
+    std::string all_cards[40][4] = {
+        {"Go", "  ", "  ","  "},
+        {"Old Kent Road", "assets/properties/old_kent.jpg", "30","2"},
+        {"Community Chest", "  ", "  ","  "},
+        {"Whitechapel Road", "assets/properties/whitechapel_road.jpg", "30","4"},
+        {"Income Tax", "  ", "  ","  "},
+        {"King's Cross Station", "assets/properties/kingcross_station.jpg", "100","25"},
+        {"The Angel Islington", "assets/properties/the_angel_islington.jpg", "50","6"},
+        {"Chance", "  ", "  ","  "},
+        {"Euston Road", "assets/properties/euston_road.jpg", "50","6"},
+        {"Pentonville Road", "assets/properties/pentonville_road.jpg", "60","8"},
+        {"Jail", "  ", "  ","  "},
+        {"Pall Mall", "assets/properties/pallmall.jpg", "70","10"},
+        {"Electric Company", "assets/properties/electric_company.jpg", "75","25"},
+        {"Whitehall", "assets/properties/whitehall.jpg", "70","10"},
+        {"Northumberland Avenue", "assets/properties/northumberland_avenue.jpg", "80","12"},
+        {"Marylebone Station", "assets/properties/marylebone_station.jpg", "100","25"},
+        {"Bow Street", "assets/properties/bow_street.jpg", "90","14"},
+        {"Community Chest", "  ", "  ","  "},
+        {"Marlborough Street", "assets/properties/marlborough_street.jpg", "90","14"},
+        {"Vine Street", "assets/properties/vine_street.jpg", "100","16"},
+        {"Free Parking", "  ", "  ","  "},
+        {"Strand", "assets/properties/strand.jpg", "110","18"},
+        {"Chance", "  ", "  ","  "},
+        {"Fleet Street", "assets/properties/fleet_street.jpg", "110","18"},
+        {"Trafalgar Square", "assets/properties/trafalgar_square.jpg", "120","20"},
+        {"Fenchurch St. Station", "assets/properties/fenchurch_street_station.jpg", "100","25"},
+        {"Leicester Square", "assets/properties/leicester_square.jpg", "130","22"},
+        {"Coventry Street", "assets/properties/coventry_street.jpg", "130","22"},
+        {"Water Works", "assets/properties/water_works.jpg", "75","25"},
+        {"Piccadilly", "assets/properties/piccadilly.jpg", "140","24"},
+        {"Go to Jail", "  ", "  ","  "},
+        {"Regent Street", "assets/properties/regent_street.jpg", "150","26"},
+        {"Oxford Street", "assets/properties/oxfors_street.jpg", "150","26"},
+        {"Community Chest", "  ", "  ","  "},
+        {"Bond Street", "assets/properties/bond_street.jpg", "160","28"},
+        {"Liverpool St. Station", "assets/properties/liverpool_street_station.jpg", "100","25"},
+        {"Chance", "  ", "  ","  "},
+        {"Park Lane", "assets/properties/park_lane.jpg", "175","35"},
+        {"Super Tax", "  ", "  ","  "},
+        {"Mayfair", "assets/properties/mayfair.jpg", "200","50"}
+    };
+
     int red[40][2] = {
 
         {890,630},{805,630},{750,630},{690,630},{635,630},{580,630},
@@ -149,48 +192,7 @@ private:
 
 
 
-    std::string all_cards[40][3] = {
-    {"Go", "  ", "  "},
-    {"Old Kent Road", "assets/properties/old_kent.jpg", "30"},
-    {"Community Chest", "  ", "  "},
-    {"Whitechapel Road", "assets/properties/whitechapel_road.jpg", "30"},
-    {"Income Tax", "  ", "  "},
-    {"King's Cross Station", "assets/properties/kingcross_station.jpg", "100"},
-    {"The Angel Islington", "assets/properties/the_angel_islington.jpg", "50"},
-    {"Chance", "  ", "  "},
-    {"Euston Road", "assets/properties/euston_road.jpg", "50"},
-    {"Pentonville Road", "assets/properties/pentonville_road.jpg", "60"},
-    {"Jail", "  ", "  "},
-    {"Pall Mall", "assets/properties/pallmall.jpg", "70"},
-    {"Electric Company", "assets/properties/electric_company.jpg", "75"},
-    {"Whitehall", "assets/properties/whitehall.jpg", "70"},
-    {"Northumberland Avenue", "assets/properties/northumberland_avenue.jpg", "80"},
-    {"Marylebone Station", "assets/properties/marylebone_station.jpg", "100"},
-    {"Bow Street", "assets/properties/bow_street.jpg", "90"},
-    {"Community Chest", "  ", "  "},
-    {"Marlborough Street", "assets/properties/marlborough_street.jpg", "90"},
-    {"Vine Street", "assets/properties/vine_street.jpg", "100"},
-    {"Free Parking", "  ", "  "},
-    {"Strand", "assets/properties/strand.jpg", "110"},
-    {"Chance", "  ", "  "},
-    {"Fleet Street", "assets/properties/fleet_street.jpg", "110"},
-    {"Trafalgar Square", "assets/properties/trafalgar_square.jpg", "120"},
-    {"Fenchurch St. Station", "assets/properties/fenchurch_street_station.jpg", "100"},
-    {"Leicester Square", "assets/properties/leicester_square.jpg", "130"},
-    {"Coventry Street", "assets/properties/coventry_street.jpg", "130"},
-    {"Water Works", "assets/properties/water_works.jpg", "75"},
-    {"Piccadilly", "assets/properties/piccadilly.jpg", "140"},
-    {"Go to Jail", "  ", "  "},
-    {"Regent Street", "assets/properties/regent_street.jpg", "150"},
-    {"Oxford Street", "assets/properties/oxfors_street.jpg", "150"},
-    {"Community Chest", "  ", "  "},
-    {"Bond Street", "assets/properties/bond_street.jpg", "160"},
-    {"Liverpool St. Station", "assets/properties/liverpool_street_station.jpg", "100"},
-    {"Chance", "  ", "  "},
-    {"Park Lane", "assets/properties/park_lane.jpg", "175"},
-    {"Super Tax", "  ", "  "},
-    {"Mayfair", "assets/properties/mayfair.jpg", "200"}
-};
+   
 
 
     //////////////////////////////////////////////////////////////
