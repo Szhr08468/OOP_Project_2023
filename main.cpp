@@ -39,12 +39,20 @@ int main(int argc, char* args[])
     
     bool update_quit = false;
 
+    Uint32 duration = 300000;
+
+    Uint32 startTime = SDL_GetTicks();
+
     while (!(game.returnQuit()) and !update_quit)
     {
-
         game.Render(); // Calls SDL_RenderClear to clear the screen
         update_quit = game.Update();
         game.HandleEvents();
+
+        if (SDL_GetTicks() - startTime >= duration)
+        {   
+            break;
+        }
         
     }
 
