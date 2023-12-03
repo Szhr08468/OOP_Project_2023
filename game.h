@@ -43,6 +43,7 @@ public:
     void RenderPlayerMoney();
     void RenderBackground();
     void Render();
+    void ShowAndDecideWinner();
     void Cleanup();
     
 

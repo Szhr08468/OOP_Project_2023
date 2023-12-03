@@ -56,6 +56,8 @@ int main(int argc, char* args[])
         
     }
 
+    game.ShowAndDecideWinner();
+
     game.Cleanup();
     return 0;
 }

@@ -686,6 +686,54 @@ void Game::Render()
     SDL_RenderPresent(gRenderer);
 }
 
+void Game::ShowAndDecideWinner()
+{   
+
+    int assetsValue[4] = {0};
+
+    for (int i = 0; i < 4; ++i) {
+        assetsValue[i] = assetsValue[i] + ((player[i].GetMoneyObject()).GetAmount());
+        for (int j = 0; j < 40; ++j) {
+            if (player[i].buy_or_not[j]) {
+                assetsValue[i] = assetsValue[i] + (std::stoi(all_cards[j][2]));
+            }
+        }
+    }
+
+    int maxIndex = 0; // Assume the first index has the maximum value
+
+    for (int i = 1; i < 4; ++i) {
+        if (assetsValue[i] > assetsValue[maxIndex]) {
+            maxIndex = i; // Update the index with the maximum value
+        }
+    }
+
+    std::string filepath = "assets/Screen/End.jpg";
+
+    if (maxIndex==0){filepath="assets/Screen/win_p1.jpg";}
+    else if (maxIndex==1){filepath="assets/Screen/win_p2.jpg";}
+    else if (maxIndex==2){filepath="assets/Screen/win_p3.jpg";}
+    else if (maxIndex==3){filepath="assets/Screen/win_p4.jpg";}
+
+    SDL_Texture* ScreenTexture = LoadTexture(filepath.c_str()); // Implement LoadTexture according to your setup
+    if (!ScreenTexture)
+    {
+        return;
+    }
+
+    SDL_RenderClear(gRenderer);
+    SDL_RenderCopy(gRenderer, ScreenTexture, NULL, NULL);
+    SDL_RenderPresent(gRenderer);
+
+    Uint32 duration = 5000;
+
+    Uint32 startTime = SDL_GetTicks();
+    while (SDL_GetTicks() - startTime < duration){}
+
+    // Release the starting screen texture
+    SDL_DestroyTexture(ScreenTexture);
+}
+
 void Game::Cleanup()
 {   
     //Roll Dice: 
