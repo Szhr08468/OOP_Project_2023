@@ -224,6 +224,7 @@ void Game::DisplayStartingScreen(Uint32 duration)
 bool Game::DisplayCardForBuy(const char* filePath)
 {
     bool BUY = false;
+    bool keyAlreadyPressed = false;
 
     SDL_Texture* startingScreenTexture = LoadTexture(filePath); // Implement LoadTexture according to your setup
     if (!startingScreenTexture)
@@ -250,7 +251,7 @@ bool Game::DisplayCardForBuy(const char* filePath)
 
         // Render the card in the center
         SDL_Rect cardRect = {cardX, cardY, cardWidth, cardHeight};
-        Render();
+        Render(); // Add your Render function implementation
         SDL_RenderCopy(gRenderer, startingScreenTexture, NULL, &cardRect);
 
         SDL_RenderPresent(gRenderer);
@@ -263,7 +264,7 @@ bool Game::DisplayCardForBuy(const char* filePath)
             HandleEvents();
             if (returnQuit())
             {
-                exitLoop=true;
+                exitLoop = true;
             }
 
             SDL_Event e;
@@ -271,22 +272,28 @@ bool Game::DisplayCardForBuy(const char* filePath)
             {   
                 if (e.type == SDL_KEYDOWN)
                 {   
-                    if (e.key.keysym.sym == SDLK_b)
+                    if (!keyAlreadyPressed)  // Check if the key is not already pressed
                     {
-                        BUY = true;
-                        exitLoop = true; // Exit the loop on 'B' press
-                    }
-                    else if (e.key.keysym.sym == SDLK_n)
-                    {
-                        BUY = false;
-                        exitLoop = true; // Exit the loop on 'N' press
+                        if (e.key.keysym.sym == SDLK_b)
+                        {
+                            BUY = true;
+                            exitLoop = true; // Exit the loop on 'B' press
+                            keyAlreadyPressed = true;  // Set the flag to true
+                        }
+                        else if (e.key.keysym.sym == SDLK_n)
+                        {
+                            BUY = false;
+                            exitLoop = true; // Exit the loop on 'N' press
+                            keyAlreadyPressed = true;  // Set the flag to true
+                        }
                     }
                 }
+                else if (e.type == SDL_KEYUP)
+                {
+                    keyAlreadyPressed = false;  // Reset the flag when the key is released
+                }
             }
-
-
         }
-
     }
 
     // Release the starting screen texture
@@ -294,6 +301,9 @@ bool Game::DisplayCardForBuy(const char* filePath)
 
     return BUY;
 }
+
+
+
 
 void Game::DisplayCard(const char* filePath)
 {
@@ -315,6 +325,13 @@ void Game::DisplayCard(const char* filePath)
     SDL_RenderClear(gRenderer);
     Render();
     SDL_RenderCopy(gRenderer, startingScreenTexture, NULL, &cardRect);
+
+    // Render a thick red line (for example, a filled rectangle near the top of the card)
+    SDL_SetRenderDrawColor(gRenderer, 255, 0, 0, 255); // Red color
+    SDL_Rect thickLineRect = {cardX, cardY, cardWidth, 30}; // Adjust the position and thickness as needed
+    SDL_RenderFillRect(gRenderer, &thickLineRect);
+    SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 255); // Reset color to black
+
     SDL_RenderPresent(gRenderer);
 
     Uint32 duration = 3000;
@@ -330,6 +347,7 @@ void Game::DisplayCard(const char* filePath)
     // Release the starting screen texture
     SDL_DestroyTexture(startingScreenTexture);
 }
+
 
 void Game::DisplayChanceOrComunnityChest(const char* filePath)
 {

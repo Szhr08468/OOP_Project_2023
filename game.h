@@ -44,6 +44,7 @@ public:
     void RenderBackground();
     void Render();
     void Cleanup();
+    
 
 
 protected:

@@ -29,13 +29,14 @@ class Player : public Game
 
     private:
     
-    bool buy_or_not [40] = {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false};
+    
     std::string name; 
     int position;
     Piece piece;
     Money money;
 
     public:
+    bool buy_or_not [40] = {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false};
     bool GetOutJailCard[2]; //First Card is of ComuunityChest and the second is of Chance
     bool InJail;
 

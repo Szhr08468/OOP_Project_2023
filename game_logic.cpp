@@ -38,6 +38,7 @@ bool Game::Update()
                 player[0].AddMoney(200);
                 pos_p1 = pos_p1%40;
             }
+            player[0].ChangePosition(pos_p1);
             if (all_cards[pos_p1][0] != "Community Chest" && all_cards[pos_p1][0] != "Chance" && all_cards[pos_p1][0] != "Go" && all_cards[pos_p1][0] != "Income Tax" && all_cards[pos_p1][0] != "Jail" && all_cards[pos_p1][0] != "Go to Jail" && all_cards[pos_p1][0] != "Free Parking" && all_cards[pos_p1][0] != "Super Tax"){
                 if(((player[0].buy_or_not)[pos_p1]==true) || ((player[1].buy_or_not)[pos_p1]==true) || ((player[2].buy_or_not)[pos_p1]==true) || ((player[3].buy_or_not)[pos_p1]==true)){
                     DisplayCard((all_cards[pos_p1][1]).c_str());
@@ -46,19 +47,23 @@ bool Game::Update()
                     DisplayCardForBuy((all_cards[pos_p1][1]).c_str());
                     if((DisplayCardForBuy((all_cards[pos_p1][1]).c_str()))==true){
                         player[0].SubMoney(std::stoi(all_cards[pos_p1][2]));
+                        (player[0].buy_or_not)[pos_p1] = true;
                     }
                 }
             }
-            else if(){
+            else if(all_cards[pos_p1][0] == "Community Chest"){
+                int a = rand() % 15;
+                DisplayChanceOrComunnityChest(("assets/CommunityChest/CommunityChest" + std::to_string(a) + ".jpg").c_str());
+                player[0].DoCommunityChest(a);
 
             }
-            else if(){
-                
-            }
+            else if(all_cards[pos_p1][0] == "Chance"){
+                int b = rand() % 15;
+                DisplayChanceOrComunnityChest(("assets/Chance/Chance" + std::to_string(b) + ".jpg").c_str());
+                player[0].DoChance(b);
 
-            
-            
-            
+            }
+  
         }
 
         
@@ -66,21 +71,134 @@ bool Game::Update()
     }
     else if (currentState == GameState::State::Player2Turn)
     {   
-        pos_p2 = ( pos_p2 + RollDice() ) %40;
-        player[1].ChangePosition(pos_p2);
+        if (player[1].InJail == false){
+            IsRPressed();
+
+            pos_p2 = pos_p2 + RollDice();
+            if (pos_p2 > 39)
+            {
+                player[1].AddMoney(200);
+                pos_p2 = pos_p2 % 40;
+            }
+            player[1].ChangePosition(pos_p2);
+            if (all_cards[pos_p2][0] != "Community Chest" && all_cards[pos_p2][0] != "Chance" && all_cards[pos_p2][0] != "Go" && all_cards[pos_p2][0] != "Income Tax" && all_cards[pos_p2][0] != "Jail" && all_cards[pos_p2][0] != "Go to Jail" && all_cards[pos_p2][0] != "Free Parking" && all_cards[pos_p2][0] != "Super Tax")
+            {
+                if (((player[0].buy_or_not)[pos_p2] == true) || ((player[1].buy_or_not)[pos_p2] == true) || ((player[2].buy_or_not)[pos_p2] == true) || ((player[3].buy_or_not)[pos_p2] == true))
+                {
+                    DisplayCard((all_cards[pos_p2][1]).c_str());
+                }
+                else
+                {
+                    DisplayCardForBuy((all_cards[pos_p2][1]).c_str());
+                    if ((DisplayCardForBuy((all_cards[pos_p2][1]).c_str())) == true)
+                    {
+                        player[1].SubMoney(std::stoi(all_cards[pos_p2][2]));
+                        (player[1].buy_or_not)[pos_p2] = true;
+                    }
+                }
+            }
+            else if (all_cards[pos_p2][0] == "Community Chest")
+            {
+                int a = rand() % 15;
+                DisplayChanceOrComunnityChest(("assets/CommunityChest/CommunityChest" + std::to_string(a) + ".jpg").c_str());
+                player[1].DoCommunityChest(a);
+            }
+            else if (all_cards[pos_p2][0] == "Chance")
+            {
+                int b = rand() % 15;
+                DisplayChanceOrComunnityChest(("assets/Chance/Chance" + std::to_string(b) + ".jpg").c_str());
+                player[1].DoChance(b);
+            }
+        }
         gamestate.SetState(GameState::State::Player3Turn);
+
     }
     else if (currentState == GameState::State::Player3Turn)
     {   
-        pos_p3 = ( pos_p3 + RollDice() ) %40;
-        player[2].ChangePosition(pos_p3);
+        if (player[2].InJail == false){
+            IsRPressed();
+
+            pos_p3 = pos_p3 + RollDice();
+            if (pos_p3 > 39)
+            {
+                player[2].AddMoney(200);
+                pos_p3 = pos_p3 % 40;
+            }
+            player[2].ChangePosition(pos_p3);
+            if (all_cards[pos_p3][0] != "Community Chest" && all_cards[pos_p3][0] != "Chance" && all_cards[pos_p3][0] != "Go" && all_cards[pos_p3][0] != "Income Tax" && all_cards[pos_p3][0] != "Jail" && all_cards[pos_p3][0] != "Go to Jail" && all_cards[pos_p3][0] != "Free Parking" && all_cards[pos_p3][0] != "Super Tax")
+            {
+                if (((player[0].buy_or_not)[pos_p3] == true) || ((player[1].buy_or_not)[pos_p3] == true) || ((player[2].buy_or_not)[pos_p3] == true) || ((player[3].buy_or_not)[pos_p3] == true))
+                {
+                    DisplayCard((all_cards[pos_p3][1]).c_str());
+                }
+                else
+                {
+                    DisplayCardForBuy((all_cards[pos_p3][1]).c_str());
+                    if ((DisplayCardForBuy((all_cards[pos_p3][1]).c_str())) == true)
+                    {
+                        player[2].SubMoney(std::stoi(all_cards[pos_p3][2]));
+                        (player[2].buy_or_not)[pos_p3] = true;
+                    }
+                }
+            }
+            else if (all_cards[pos_p3][0] == "Community Chest")
+            {
+                int a = rand() % 15;
+                DisplayChanceOrComunnityChest(("assets/CommunityChest/CommunityChest" + std::to_string(a) + ".jpg").c_str());
+                player[2].DoCommunityChest(a);
+            }
+            else if (all_cards[pos_p3][0] == "Chance")
+            {
+                int b = rand() % 15;
+                DisplayChanceOrComunnityChest(("assets/Chance/Chance" + std::to_string(b) + ".jpg").c_str());
+                player[2].DoChance(b);
+            }
+        }
         gamestate.SetState(GameState::State::Player4Turn);
     }
     else if (currentState == GameState::State::Player4Turn)
     {
-        pos_p4 = ( pos_p4 + RollDice() ) %40;
-        player[3].ChangePosition(pos_p4);
+        if (player[3].InJail == false){
+            IsRPressed();
+
+            pos_p4 = pos_p4 + RollDice();
+            if (pos_p4 > 39)
+            {
+                player[3].AddMoney(200);
+                pos_p4 = pos_p4 % 40;
+            }
+            player[3].ChangePosition(pos_p4);
+            if (all_cards[pos_p4][0] != "Community Chest" && all_cards[pos_p4][0] != "Chance" && all_cards[pos_p4][0] != "Go" && all_cards[pos_p4][0] != "Income Tax" && all_cards[pos_p4][0] != "Jail" && all_cards[pos_p4][0] != "Go to Jail" && all_cards[pos_p4][0] != "Free Parking" && all_cards[pos_p4][0] != "Super Tax")
+            {
+                if (((player[0].buy_or_not)[pos_p4] == true) || ((player[1].buy_or_not)[pos_p4] == true) || ((player[2].buy_or_not)[pos_p4] == true) || ((player[3].buy_or_not)[pos_p4] == true))
+                {
+                    DisplayCard((all_cards[pos_p4][1]).c_str());
+                }
+                else
+                {
+                    DisplayCardForBuy((all_cards[pos_p4][1]).c_str());
+                    if ((DisplayCardForBuy((all_cards[pos_p4][1]).c_str())) == true)
+                    {
+                        player[3].SubMoney(std::stoi(all_cards[pos_p4][2]));
+                        (player[3].buy_or_not)[pos_p4] = true;
+                    }
+                }
+            }
+            else if (all_cards[pos_p4][0] == "Community Chest")
+            {
+                int a = rand() % 15;
+                DisplayChanceOrComunnityChest(("assets/CommunityChest/CommunityChest" + std::to_string(a) + ".jpg").c_str());
+                player[3].DoCommunityChest(a);
+            }
+            else if (all_cards[pos_p4][0] == "Chance")
+            {
+                int b = rand() % 15;
+                DisplayChanceOrComunnityChest(("assets/Chance/Chance" + std::to_string(b) + ".jpg").c_str());
+                player[3].DoChance(b);
+            }
+        }       
         gamestate.SetState(GameState::State::Player1Turn);
+
     }
 
 
