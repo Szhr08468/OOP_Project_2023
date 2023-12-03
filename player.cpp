@@ -86,6 +86,7 @@ void Player::SubMoney(int m)
     money.SubtractAmount(m);
 }
 
+
 void Player::DoCommunityChest(int x) 
 {   
     if (x==0)
@@ -116,6 +117,7 @@ void Player::DoCommunityChest(int x)
     else if(x==6) 
     {   
         AddMoney(300);
+
         if (name=="p1") {
             player[1].SubMoney(100);
             player[2].SubMoney(100);
@@ -253,6 +255,7 @@ void Player::DoChance(int x)
     {
         if (position==7) {
             ChangePosition(4);
+            SubMoney(200);
         }
         else if (position==22) {
             ChangePosition(19);
